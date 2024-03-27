@@ -1,0 +1,57 @@
+[
+    {
+        "model": "codebooga:latest",
+        "size": "19",
+        "size_type": "GB"
+    },
+    {
+        "model": "codellama:latest",
+        "size": "3.8",
+        "size_type": "GB"
+    },
+    {
+        "model": "codeup:latest",
+        "size": "7.4",
+        "size_type": "GB"
+    },
+    {
+        "model": "dolphincoder:latest",
+        "size": "9.1",
+        "size_type": "GB"
+    },
+    {
+        "model": "magicoder:latest",
+        "size": "3.8",
+        "size_type": "GB"
+    },
+    {
+        "model": "phind-codellama:latest",
+        "size": "19",
+        "size_type": "GB"
+    },
+    {
+        "model": "sqlcoder:latest",
+        "size": "4.1",
+        "size_type": "GB"
+    },
+    {
+        "model": "stable-code:latest",
+        "size": "1.6",
+        "size_type": "GB"
+    },
+    {
+        "model": "starcoder:latest",
+        "size": "1.8",
+        "size_type": "GB"
+    },
+    {
+        "model": "starcoder2:latest",
+        "size": "1.7",
+        "size_type": "GB"
+    },
+    {
+        "model": "wizardcoder:latest",
+        "size": "3.8",
+        "size_type": "GB"
+    }
+]

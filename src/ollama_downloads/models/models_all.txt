@@ -1,0 +1,217 @@
+[
+    {
+        "model": "bakllava:latest",
+        "size": "4.7",
+        "size_type": "GB"
+    },
+    {
+        "model": "deepseek-llm:latest",
+        "size": "4.0",
+        "size_type": "GB"
+    },
+    {
+        "model": "dolphin-mistral:latest",
+        "size": "4.1",
+        "size_type": "GB"
+    },
+    {
+        "model": "dolphin-phi:latest",
+        "size": "1.6",
+        "size_type": "GB"
+    },
+    {
+        "model": "everythinglm:latest",
+        "size": "7.4",
+        "size_type": "GB"
+    },
+    {
+        "model": "falcon:latest",
+        "size": "4.2",
+        "size_type": "GB"
+    },
+    {
+        "model": "gemma:latest",
+        "size": "5.2",
+        "size_type": "GB"
+    },
+    {
+        "model": "llama-pro:latest",
+        "size": "4.7",
+        "size_type": "GB"
+    },
+    {
+        "model": "llama2:latest",
+        "size": "3.8",
+        "size_type": "GB"
+    },
+    {
+        "model": "llama2-chinese:latest",
+        "size": "3.8",
+        "size_type": "GB"
+    },
+    {
+        "model": "llama2-uncensored:latest",
+        "size": "3.8",
+        "size_type": "GB"
+    },
+    {
+        "model": "llava:latest",
+        "size": "4.7",
+        "size_type": "GB"
+    },
+    {
+        "model": "meditron:latest",
+        "size": "3.8",
+        "size_type": "GB"
+    },
+    {
+        "model": "medllama2:latest",
+        "size": "3.8",
+        "size_type": "GB"
+    },
+    {
+        "model": "mistral:latest",
+        "size": "4.1",
+        "size_type": "GB"
+    },
+    {
+        "model": "mistral-openorca:latest",
+        "size": "4.1",
+        "size_type": "GB"
+    },
+    {
+        "model": "mistrallite:latest",
+        "size": "4.1",
+        "size_type": "GB"
+    },
+    {
+        "model": "neural-chat:latest",
+        "size": "4.1",
+        "size_type": "GB"
+    },
+    {
+        "model": "nexusraven:latest",
+        "size": "7.4",
+        "size_type": "GB"
+    },
+    {
+        "model": "notus:latest",
+        "size": "4.1",
+        "size_type": "GB"
+    },
+    {
+        "model": "nous-hermes:latest",
+        "size": "3.8",
+        "size_type": "GB"
+    },
+    {
+        "model": "nous-hermes2:latest",
+        "size": "6.1",
+        "size_type": "GB"
+    },
+    {
+        "model": "open-orca-platypus2:latest",
+        "size": "7.4",
+        "size_type": "GB"
+    },
+    {
+        "model": "openchat:latest",
+        "size": "4.1",
+        "size_type": "GB"
+    },
+    {
+        "model": "openhermes:latest",
+        "size": "4.1",
+        "size_type": "GB"
+    },
+    {
+        "model": "orca-mini:latest",
+        "size": "2.0",
+        "size_type": "GB"
+    },
+    {
+        "model": "orca2:latest",
+        "size": "3.8",
+        "size_type": "GB"
+    },
+    {
+        "model": "phi:latest",
+        "size": "1.6",
+        "size_type": "GB"
+    },
+    {
+        "model": "qwen:latest",
+        "size": "2.3",
+        "size_type": "GB"
+    },
+    {
+        "model": "samantha-mistral:latest",
+        "size": "4.1",
+        "size_type": "GB"
+    },
+    {
+        "model": "solar:latest",
+        "size": "6.1",
+        "size_type": "GB"
+    },
+    {
+        "model": "stable-beluga:latest",
+        "size": "3.8",
+        "size_type": "GB"
+    },
+    {
+        "model": "stablelm-zephyr:latest",
+        "size": "1.6",
+        "size_type": "GB"
+    },
+    {
+        "model": "starling-lm:latest",
+        "size": "4.1",
+        "size_type": "GB"
+    },
+    {
+        "model": "vicuna:latest",
+        "size": "3.8",
+        "size_type": "GB"
+    },
+    {
+        "model": "wizard-vicuna:latest",
+        "size": "7.4",
+        "size_type": "GB"
+    },
+    {
+        "model": "wizard-vicuna-uncensored:latest",
+        "size": "3.8",
+        "size_type": "GB"
+    },
+    {
+        "model": "wizardlm-uncensored:latest",
+        "size": "7.4",
+        "size_type": "GB"
+    },
+    {
+        "model": "xwinlm:latest",
+        "size": "3.8",
+        "size_type": "GB"
+    },
+    {
+        "model": "yarn-llama2:latest",
+        "size": "3.8",
+        "size_type": "GB"
+    },
+    {
+        "model": "yarn-mistral:latest",
+        "size": "4.1",
+        "size_type": "GB"
+    },
+    {
+        "model": "yi:latest",
+        "size": "3.5",
+        "size_type": "GB"
+    },
+    {
+        "model": "zephyr:latest",
+        "size": "4.1",
+        "size_type": "GB"
+    }
+]

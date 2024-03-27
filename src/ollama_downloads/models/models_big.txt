@@ -1,0 +1,47 @@
+[
+    {
+        "model": "alfred:latest",
+        "size": "23",
+        "size_type": "GB"
+    },
+    {
+        "model": "codebooga:latest",
+        "size": "19",
+        "size_type": "GB"
+    },
+    {
+        "model": "dolphin-mixtral:latest",
+        "size": "26",
+        "size_type": "GB"
+    },
+    {
+        "model": "goliath:latest",
+        "size": "66",
+        "size_type": "GB"
+    },
+    {
+        "model": "megadolphin:latest",
+        "size": "67",
+        "size_type": "GB"
+    },
+    {
+        "model": "mixtral:latest",
+        "size": "26",
+        "size_type": "GB"
+    },
+    {
+        "model": "notux:latest",
+        "size": "26",
+        "size_type": "GB"
+    },
+    {
+        "model": "nous-hermes2-mixtral:latest",
+        "size": "26",
+        "size_type": "GB"
+    },
+    {
+        "model": "phind-codellama:latest",
+        "size": "19",
+        "size_type": "GB"
+    }
+]

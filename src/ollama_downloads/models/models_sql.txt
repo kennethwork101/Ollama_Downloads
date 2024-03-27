@@ -1,0 +1,12 @@
+[
+    {
+        "model": "duckdb-nsql:latest",
+        "size": "3.8",
+        "size_type": "GB"
+    },
+    {
+        "model": "sqlcoder:latest",
+        "size": "4.1",
+        "size_type": "GB"
+    }
+]

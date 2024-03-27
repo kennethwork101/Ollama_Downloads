@@ -1,0 +1,17 @@
+*bad
+*.db
+.DS_Store
+.env*
+.git/
+*.ipynb
+*log
+mydb/
+out*
+*png
+__pycache__
+*swp
+*tgz
+typescript*
+venv*
+.venv*
+.vscode/
