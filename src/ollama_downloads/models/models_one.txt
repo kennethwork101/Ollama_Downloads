@@ -1,0 +1,7 @@
+[
+    {
+        "model": "openhermes:latest",
+        "size": "4.1",
+        "size_type": "GB"
+    }
+]

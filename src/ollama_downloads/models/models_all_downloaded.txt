@@ -25,6 +25,11 @@
         "size_type": "GB"
     },
     {
+        "model": "command-r:latest",
+        "size": "20",
+        "size_type": "GB"
+    },
+    {
         "model": "deepseek-llm:latest",
         "size": "4.0",
         "size_type": "GB"

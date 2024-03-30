@@ -1,0 +1,22 @@
+[
+    {
+        "model": "llama2:latest",
+        "size": "3.8",
+        "size_type": "GB"
+    },
+    {
+        "model": "mistral:latest",
+        "size": "4.1",
+        "size_type": "GB"
+    },
+    {
+        "model": "openchat:latest",
+        "size": "4.1",
+        "size_type": "GB"
+    },
+    {
+        "model": "openhermes:latest",
+        "size": "4.1",
+        "size_type": "GB"
+    }
+]

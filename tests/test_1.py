@@ -25,12 +25,24 @@ def test_version():
 
 
 @clock
-def test_ollama():
+def test_ollama_one():
     options = {}
     options["default_concur_req"] = 10
     options["max_concur_req"] = 10
     options["url"] = "https://ollama.com/library"
     options["models_dir"] = "models"
+    options["models"] = "openhermes:latest"
     ollama_models = OllamaModels(options)
-    ollama_models.models(options["default_concur_req"], options["max_concur_req"])
-    ollama_models.close_browser()
+    ollama_models.download_models()
+
+
+@clock
+def test_ollama_all():
+    options = {}
+    options["default_concur_req"] = 10
+    options["max_concur_req"] = 10
+    options["url"] = "https://ollama.com/library"
+    options["models_dir"] = "models"
+    options["models"] = None
+    ollama_models = OllamaModels(options)
+    ollama_models.download_models()
