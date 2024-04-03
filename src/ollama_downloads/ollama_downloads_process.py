@@ -27,6 +27,7 @@ def _download_one(model, verbose):
     result = subprocess.check_output([command], shell=True)
     print(f"{name_} result: {result}")
 
+
 @clock
 class OllamaModels:
     @clock
@@ -40,6 +41,10 @@ class OllamaModels:
         print(f"{name_} url {self.driver.current_url}")
         print(f"{name_} title {self.driver.title}")
         assert self.driver.title == "library", f"-error: {name_} bad title {self.driver.title}"
+        home_dir = os.path.expanduser("~")
+        self.models_dir = os.path.join(home_dir, options["models_dir"])
+        if not os.path.exists(self.models_dir):
+            os.makedirs(folder_path)
 
     @clock
     def __del__(self):
@@ -179,14 +184,10 @@ class OllamaModels:
     @clock
     def _save_file(self, fname, fdata):
         name_ = f"{self.name_}: {inspect.currentframe().f_code.co_name}"
-        fname = os.path.join(self.options["models_dir"], fname)
         print(f"{name_} fname {fname}")
-        pathname = Path(fname)
-        print(f"{name_} pathname {pathname}")
-        dname = pathname.parent
-        print(f"{name_} dname {dname}")
-        if not os.path.exists(dname):
-            os.makedirs(dname)
+        print(f"{name_} self.models_dir {self.models_dir}")
+        fname = os.path.join(self.models_dir, fname)
+        print(f"{name_} fname {fname}")
         with open(fname, "w") as fp:
             json.dump(fdata, fp, indent=4)
 
@@ -194,7 +195,8 @@ class OllamaModels:
     def _load_file(self, fname):
         name_ = f"{self.name_}: {inspect.currentframe().f_code.co_name}"
         print(f"{name_} fname {fname}")
-        fname = os.path.join(self.options["models_dir"], fname)
+        print(f"{name_} self.models_dir {self.models_dir}")
+        fname = os.path.join(self.models_dir, fname)
         print(f"{name_} fname {fname}")
         with open(fname, "r") as fp:
             data = json.load(fp)
@@ -207,7 +209,7 @@ def Options():
     parser.add_argument('--default_concur_req', type=int, help='default_concur_req', default=10)
     parser.add_argument('--max_concur_req', type=int, help='max_concur_req', default=10)
     parser.add_argument('--url', type=str, help='url', default='https://ollama.com/library')
-    parser.add_argument('--models_dir', type=str, help='models_dir', default='models')
+    parser.add_argument('--models_dir', type=str, help='models_dir', default='.ollama_downloads/models')
     parser.add_argument('--models', type=str, help='models: A comma seperated list of models to download')
     args = vars(parser.parse_args())
     return args
