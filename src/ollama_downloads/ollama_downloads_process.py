@@ -179,12 +179,14 @@ class OllamaModels:
     @clock
     def _save_file(self, fname, fdata):
         name_ = f"{self.name_}: {inspect.currentframe().f_code.co_name}"
-        dirpath = os.path.dirname(os.path.abspath(__file__))
-        # Package root is located at 2 levels up
-        dirpath = os.path.join(dirpath, "../..")
-        fname = os.path.join(dirpath, self.options["models_dir"], fname)
+        fname = os.path.join(self.options["models_dir"], fname)
         print(f"{name_} fname {fname}")
-        print(f"{name_} fname {fname}")
+        pathname = Path(fname)
+        print(f"{name_} pathname {pathname}")
+        dname = pathname.parent
+        print(f"{name_} dname {dname}")
+        if not os.path.exists(dname):
+            os.makedirs(dname)
         with open(fname, "w") as fp:
             json.dump(fdata, fp, indent=4)
 
@@ -192,12 +194,7 @@ class OllamaModels:
     def _load_file(self, fname):
         name_ = f"{self.name_}: {inspect.currentframe().f_code.co_name}"
         print(f"{name_} fname {fname}")
-        dirpath = os.path.dirname(os.path.abspath(__file__))
-        # Package root is located at 2 levels up
-        dirpath = os.path.join(dirpath, "../..")
-        print(f"{name_} dirpath {dirpath}")
-        fname = os.path.join(dirpath, self.options["models_dir"], fname)
-        print(f"{name_} fname {fname}")
+        fname = os.path.join(self.options["models_dir"], fname)
         print(f"{name_} fname {fname}")
         with open(fname, "r") as fp:
             data = json.load(fp)
