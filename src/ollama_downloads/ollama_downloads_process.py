@@ -65,8 +65,9 @@ class OllamaModels:
         printit(f"{name_} repo", repo)
         links = repo.find_elements(By.XPATH, "//li/a[@href]")
         PAT_RE = re.compile(rf"^{self.url}/(\S+)$")
-        models = sorted([re.findall(PAT_RE, link.get_attribute("href"))[0] for link in links])
-#       printit(f"{name_} models", models)
+        models = sorted([re.findall(PAT_RE, link.get_attribute("href")) for link in links])
+        printit(f"{name_} models", models)
+        models = [m[0] for m in models if len(m) > 0]
         self.concur_req = min(self.options['default_concur_req'], self.options['max_concur_req'], len(models))
         printit("{name_} concur_req", self.concur_req)
         models = [m for m in models if m not in ["wizardlm"]]
@@ -83,7 +84,6 @@ class OllamaModels:
                 fname = "models_few.txt"
                 fdata = [data for data in self.models_data for model in models if data['model'] == model]
                 self._save_file(fname, fdata)
-
         else:
             self._download_all_models(models)
 
