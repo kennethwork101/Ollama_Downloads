@@ -12,6 +12,7 @@ __pycache__
 *swp
 *tgz
 typescript*
+uv.lock
 venv*
 .venv*
 .vscode/

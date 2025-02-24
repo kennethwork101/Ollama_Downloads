@@ -1,9 +1,9 @@
 import pytest
 
 from kwwutils import clock, get_llm, printit
-from ollama_downloads.ollama_downloads_process import OllamaModels
+from uvprog2025.Ollama_Downloads.src.ollama_downloads.ollama_downloads_process import OllamaModels
 
-
+@pytest.mark.testme
 @clock
 def test_ollama_one(options, model):
     printit("1 options", options)
