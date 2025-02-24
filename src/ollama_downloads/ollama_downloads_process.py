@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from __future__ import annotations
 
 import argparse
 import inspect
@@ -16,7 +17,7 @@ from kwwutils import clock, printit
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
-DownloadStatus = Enum('DownloadStatus', 'OK NOT_FOUND ERROR')
+DownloadStatus = Enum("DownloadStatus", "OK NOT_FOUND ERROR")
 
 
 def _download_one(model, verbose):
@@ -40,11 +41,13 @@ class OllamaModels:
         self.driver.get(self.url)
         print(f"{name_} url {self.driver.current_url}")
         print(f"{name_} title {self.driver.title}")
-        assert self.driver.title == "library", f"-error: {name_} bad title {self.driver.title}"
+        assert self.driver.title == "library", (
+            f"-error: {name_} bad title {self.driver.title}"
+        )
         home_dir = os.path.expanduser("~")
         self.models_dir = os.path.join(home_dir, options["models_dir"])
         if not os.path.exists(self.models_dir):
-            os.makedirs(folder_path)
+            os.makedirs(self.models_dir)
 
     @clock
     def __del__(self):
@@ -65,12 +68,31 @@ class OllamaModels:
         printit(f"{name_} repo", repo)
         links = repo.find_elements(By.XPATH, "//li/a[@href]")
         PAT_RE = re.compile(rf"^{self.url}/(\S+)$")
-        models = sorted([re.findall(PAT_RE, link.get_attribute("href")) for link in links])
+        models = sorted(
+            [re.findall(PAT_RE, link.get_attribute("href")) for link in links]
+        )
         printit(f"{name_} models", models)
         models = [m[0] for m in models if len(m) > 0]
-        self.concur_req = min(self.options['default_concur_req'], self.options['max_concur_req'], len(models))
+        self.concur_req = min(
+            self.options["default_concur_req"],
+            self.options["max_concur_req"],
+            len(models),
+        )
         printit("{name_} concur_req", self.concur_req)
-        models = [m for m in models if m not in ["wizardlm"]]
+        skip_models = [
+            "deepseek-v3",
+            "deepseek-v2.5",
+            "dbrx",
+            "megadolphin",
+            "goliath",
+            "command-r-plus",
+            "athene-v2",
+#           "nemotron",
+            "r1-1776",
+            "firefunction-v2",
+            "wizardlm",
+        ]
+        models = [m for m in models if m not in skip_models]
         self._get_models_info(models)
         if self.options["models"] is not None:
             models = self.options["models"].split(",")
@@ -78,11 +100,18 @@ class OllamaModels:
             self._download_many(models)
             if len(models) == 1:
                 fname = "models_one.txt"
-                fdata = [data for data in self.models_data if data['model'] == models[0]]
+                fdata = [
+                    data for data in self.models_data if data["model"] == models[0]
+                ]
                 self._save_file(fname, fdata)
             else:
                 fname = "models_few.txt"
-                fdata = [data for data in self.models_data for model in models if data['model'] == model]
+                fdata = [
+                    data
+                    for data in self.models_data
+                    for model in models
+                    if data["model"] == model
+                ]
                 self._save_file(fname, fdata)
         else:
             self._download_all_models(models)
@@ -113,19 +142,21 @@ class OllamaModels:
                 except KeyboardInterrupt:
                     break
                 else:
-                    error_msg = ''
+                    error_msg = ""
                 if error_msg:
                     status = DownloadStatus.ERROR
                 counter[status] += 1
                 if verbose and error_msg:
                     cc = to_do_map[future]  # <14>
-                    print(f'{name_} {cc} error: {error_msg}')
+                    print(f"{name_} {cc} error: {error_msg}")
         return counter
 
     @clock
     def _get_models_info(self, models):
         name_ = f"{self.name_}: {inspect.currentframe().f_code.co_name}"
-        MODEL_DATA_NAMEDTUPLE = namedtuple("Model_Data_Namedtuple", "model size size_type")
+        MODEL_DATA_NAMEDTUPLE = namedtuple(
+            "Model_Data_Namedtuple", "model size size_type"
+        )
         models_all_downloaded = set(models)
         models_codes = set([m for m in models if "code" in m])
         models_sql = set([m for m in models if "sql" in m])
@@ -135,10 +166,10 @@ class OllamaModels:
         # Use ollama to retrieve models information
         command = "ollama list"
         result = subprocess.check_output([command], shell=True)
-#       printit(f"{name_} {command}: ", result)
+        #       printit(f"{name_} {command}: ", result)
         models = result.strip().decode("utf-8")
         models = models.split("\n")
-        pat = re.compile(f"^(\S+)\s+\S+\s+(\S+)\s(GB|MP).*$")
+        pat = re.compile("^(\S+)\s+\S+\s+(\S+)\s(GB|MP).*$")
         models_data = []
         for line in models:
             matched = pat.match(line)
@@ -146,17 +177,29 @@ class OllamaModels:
                 mdata = MODEL_DATA_NAMEDTUPLE(*matched.groups())
                 mdata = mdata._asdict()
                 models_data.append(mdata)
-#       print("{name_} models_data", pformat(models_data))
+        #       print("{name_} models_data", pformat(models_data))
         models_all_downloaded_info = models_data
         print(f"models_data {models_data}")
-        models_codes_info = [m for m in models_data if m["model"].split(":")[0] in models_codes]
-        models_sql_info = [m for m in models_data if m["model"].split(":")[0] in models_sql]
-        models_math_info = [m for m in models_data if m["model"].split(":")[0] in models_math]
-        models_big_info = [m for m in models_data if m["size_type"] == "GB" and float(m["size"]) > 10]
+        models_codes_info = [
+            m for m in models_data if m["model"].split(":")[0] in models_codes
+        ]
+        models_sql_info = [
+            m for m in models_data if m["model"].split(":")[0] in models_sql
+        ]
+        models_math_info = [
+            m for m in models_data if m["model"].split(":")[0] in models_math
+        ]
+        models_big_info = [
+            m for m in models_data if m["size_type"] == "GB" and float(m["size"]) > 10
+        ]
         models_big = set([m["model"].split(":")[0] for m in models_big_info])
         print("{name_}  models_big", pformat(models_big))
-        models_all_info = [m for m in models_data if m["model"].split(":")[0] not in (
-            models_codes | models_sql | models_big | models_math)]
+        models_all_info = [
+            m
+            for m in models_data
+            if m["model"].split(":")[0]
+            not in (models_codes | models_sql | models_big | models_math)
+        ]
         print("{name_} models_all_downloaded_info", pformat(models_all_downloaded_info))
         print("{name_} models_big_info", pformat(models_big_info))
         print("{name_} models_all_info", pformat(models_all_info))
@@ -175,10 +218,32 @@ class OllamaModels:
     def _save_all_models_file(self, models):
         name_ = f"{self.name_}: {inspect.currentframe().f_code.co_name}"
         for fname, data in zip(
-            ["models_all_downloaded.txt", "models_big.txt", "models_all.txt", "models_codes.txt", "models_sql.txt", "models_math.txt",],
-            [self.models_all_downloaded_info, self.models_big_info, self.models_all_info, self.models_codes_info, self.models_sql_info, self.models_math_info,]):
+            [
+                "models_all_downloaded.txt",
+                "models_big.txt",
+                "models_all.txt",
+                "models_codes.txt",
+                "models_sql.txt",
+                "models_math.txt",
+            ],
+            [
+                self.models_all_downloaded_info,
+                self.models_big_info,
+                self.models_all_info,
+                self.models_codes_info,
+                self.models_sql_info,
+                self.models_math_info,
+            ],
+        ):
             self._save_file(fname, data)
-        for fname in ["models_all_downloaded.txt", "models_big.txt", "models_all.txt", "models_codes.txt", "models_sql.txt", "models_math.txt",]:
+        for fname in [
+            "models_all_downloaded.txt",
+            "models_big.txt",
+            "models_all.txt",
+            "models_codes.txt",
+            "models_sql.txt",
+            "models_math.txt",
+        ]:
             self._load_file(fname)
 
     @clock
@@ -206,11 +271,21 @@ class OllamaModels:
 
 def Options():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--default_concur_req', type=int, help='default_concur_req', default=10)
-    parser.add_argument('--max_concur_req', type=int, help='max_concur_req', default=10)
-    parser.add_argument('--url', type=str, help='url', default='https://ollama.com/library')
-    parser.add_argument('--models_dir', type=str, help='models_dir', default='.ollama_downloads/models')
-    parser.add_argument('--models', type=str, help='models: A comma seperated list of models to download')
+    parser.add_argument(
+        "--default_concur_req", type=int, help="default_concur_req", default=10
+    )
+    parser.add_argument("--max_concur_req", type=int, help="max_concur_req", default=10)
+    parser.add_argument(
+        "--url", type=str, help="url", default="https://ollama.com/library"
+    )
+    parser.add_argument(
+        "--models_dir", type=str, help="models_dir", default=".ollama_downloads/models"
+    )
+    parser.add_argument(
+        "--models",
+        type=str,
+        help="models: A comma seperated list of models to download",
+    )
     args = vars(parser.parse_args())
     return args
 

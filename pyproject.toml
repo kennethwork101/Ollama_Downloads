@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "kwwutils>=0.1.16",
+    "ruff>=0.9.7",
     "selenium>=4.29.0",
     "tqdm>=4.67.1",
     "transformers>=4.49.0",
@@ -34,3 +35,16 @@ dev = [
     "pytest-xvfb>=3.0.0",
 ]
 
+[tool.ruff]
+extend-select = ["I"]
+
+[tool.ruff.lint.isort]
+# Required for uv compatibility
+required-imports = ["from __future__ import annotations"]
+# Tell isort about your package manager
+known-first-party = ["your_project_name"]
+# If you use specific third-party packages that should be grouped
+known-third-party = ["numpy", "pandas"]  # adjust as needed
+
+# Important for uv to recognize local packages correctly
+combine-as-imports = true
