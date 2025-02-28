@@ -5,6 +5,7 @@ import argparse
 import inspect
 import json
 import os
+import random
 import re
 import subprocess
 from collections import Counter, namedtuple
@@ -15,7 +16,20 @@ from pprint import pformat
 import tqdm
 from kwwutils import clock, printit
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
+
+# Create Chrome options
+chrome_options = Options()
+chrome_options.add_argument("--no-sandbox")
+chrome_options.add_argument("--disable-dev-shm-usage")
+chrome_options.add_argument("--headless")  # Run in headless mode
+chrome_options.add_argument("--disable-gpu")
+# Use a fresh data directory each time
+chrome_options.add_argument(
+    "--user-data-dir=/tmp/chrome-data-dir-" + str(random.randint(0, 1000000))
+)
+
 
 DownloadStatus = Enum("DownloadStatus", "OK NOT_FOUND ERROR")
 
@@ -37,7 +51,7 @@ class OllamaModels:
         name_ = f"{self.name_}: {inspect.currentframe().f_code.co_name}"
         self.options = options
         self.url = options["url"]
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Chrome(options=chrome_options)
         self.driver.get(self.url)
         print(f"{name_} url {self.driver.current_url}")
         print(f"{name_} title {self.driver.title}")
@@ -87,7 +101,6 @@ class OllamaModels:
             "goliath",
             "command-r-plus",
             "athene-v2",
-#           "nemotron",
             "r1-1776",
             "firefunction-v2",
             "wizardlm",
@@ -269,7 +282,7 @@ class OllamaModels:
             printit(f"{fname} data type", type(data))
 
 
-def Options():
+def Options2():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--default_concur_req", type=int, help="default_concur_req", default=10
@@ -291,7 +304,7 @@ def Options():
 
 
 if __name__ == "__main__":
-    options = Options()
+    options = Options2()
     printit("options", options)
     ollama_models = OllamaModels(options)
     ollama_models.download_models()
