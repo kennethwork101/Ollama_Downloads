@@ -182,7 +182,7 @@ class OllamaModels:
         #       printit(f"{name_} {command}: ", result)
         models = result.strip().decode("utf-8")
         models = models.split("\n")
-        pat = re.compile("^(\S+)\s+\S+\s+(\S+)\s(GB|MP).*$")
+        pat = re.compile(r"^(\S+)\s+\S+\s+(\S+)\s(GB|MP).*$")
         models_data = []
         for line in models:
             matched = pat.match(line)
